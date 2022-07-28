@@ -1,0 +1,15 @@
+@import '~bootstrap';
+@import '~@fortawesome/fontawesome-free/css/all.css';
+@import '~@fontsource/roboto';
+
+body {
+    background-color: lightgray;
+}
+
+.header--navbar{
+    background-color: whitesmoke;
+}
+
+.main {
+    background-color: whitesmoke;
+}

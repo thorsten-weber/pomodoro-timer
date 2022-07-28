@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | {{ app_name }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row"> <h1>{{ welcome_message }}</h1>
+            <h2>{{ app_name }}</h2></div>
+    </div>
+
+    {% include 'timer.html.twig' %}
+
+    {% include 'tasks.html.twig' %}
+
+{% endblock %}

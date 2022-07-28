@@ -1,0 +1,37 @@
+<h2>Timer TODOs</h2>
+<div class="container">
+    <div class="row">
+
+        <div class="container clock"
+                {{ stimulus_controller('countdown-clock', {
+                    pomodoroInMinutes: 25
+                }) }}
+        >
+            <div id="countdown-timer"
+                    {{ stimulus_target('countdown-clock', 'timerDisplay') }}
+            ></div>
+            <div class="col-sm-12" id="countdown-controls">
+                <input id="countdown-control-start"
+                       type="button"
+                       value="START"
+                        {{ stimulus_action('click->countdown-clock', 'start') }}
+                        {{ stimulus_target('countdown-clock', 'countdownStartButton') }}
+                >
+                <input id="countdown-control-stop"
+                       type="button"
+                       value="STOP"
+                        {{ stimulus_action('click->countdown-clock', 'stop') }}
+                        {{ stimulus_target('countdown-clock', 'countdownStopButton') }}
+                >
+                <input id="countdown-control-reset"
+                       type="button"
+                       value="RESET"
+                        {{ stimulus_action('click->countdown-clock', 'reset') }}
+                        {{ stimulus_target('countdown-clock', 'countdownResetButton') }}
+                >
+            </div>
+        </div>
+
+    </div>
+</div>
+
