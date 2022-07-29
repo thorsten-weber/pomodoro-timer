@@ -13,7 +13,8 @@ class IndexController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstrac
         // TODO: render real stuff
         return $this->render('index.html.twig', [
             'welcome_message' => 'Welcome, ',
-            'app_name' =>  'Toto`s Pomodoro Timer',
+            'app_name' =>  'Toto Tomato',
+            'app_description' => 'A Pomodoro Timer',
         ]);
     }
 }

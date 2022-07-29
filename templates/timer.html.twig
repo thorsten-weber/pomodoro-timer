@@ -1,34 +1,36 @@
-<h2>Timer TODOs</h2>
 <div class="container">
-    <div class="row">
+    <div class="row text-center">
 
-        <div class="container clock"
+        <h2>Timer TODOs</h2>
+        <div class="container clock col-sm-12 col-md-4 align-content-center"
                 {{ stimulus_controller('countdown-clock', {
                     pomodoroInMinutes: 25
                 }) }}
         >
-            <div id="countdown-timer"
-                    {{ stimulus_target('countdown-clock', 'timerDisplay') }}
-            ></div>
-            <div class="col-sm-12" id="countdown-controls">
-                <input id="countdown-control-start"
-                       type="button"
-                       value="START"
-                        {{ stimulus_action('click->countdown-clock', 'start') }}
-                        {{ stimulus_target('countdown-clock', 'countdownStartButton') }}
-                >
-                <input id="countdown-control-stop"
-                       type="button"
-                       value="STOP"
-                        {{ stimulus_action('click->countdown-clock', 'stop') }}
-                        {{ stimulus_target('countdown-clock', 'countdownStopButton') }}
-                >
-                <input id="countdown-control-reset"
-                       type="button"
-                       value="RESET"
-                        {{ stimulus_action('click->countdown-clock', 'reset') }}
-                        {{ stimulus_target('countdown-clock', 'countdownResetButton') }}
-                >
+            <div class="row">
+                <div id="countdown-timer" class="col-sm-12 text-center"
+                        {{ stimulus_target('countdown-clock', 'timerDisplay') }}
+                ></div>
+                <div class="col-sm-12 text-center" id="countdown-controls">
+                    <input id="countdown-control-start"
+                           type="button"
+                           value="START"
+                            {{ stimulus_action('click->countdown-clock', 'start') }}
+                            {{ stimulus_target('countdown-clock', 'countdownStartButton') }}
+                    >
+                    <input id="countdown-control-stop"
+                           type="button"
+                           value="STOP"
+                            {{ stimulus_action('click->countdown-clock', 'stop') }}
+                            {{ stimulus_target('countdown-clock', 'countdownStopButton') }}
+                    >
+                    <input id="countdown-control-reset"
+                           type="button"
+                           value="RESET"
+                            {{ stimulus_action('click->countdown-clock', 'reset') }}
+                            {{ stimulus_target('countdown-clock', 'countdownResetButton') }}
+                    >
+                </div>
             </div>
         </div>
 
