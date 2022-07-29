@@ -35,13 +35,46 @@ This project is work in progress
     * estimated finish time (hh:mm)
 
 
+#### Todos - Entities / Models
 
-```bash
-echo "# pomodoro-timer" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin git@github.com:thorsten-weber/pomodoro-timer.git
-git push -u origin main
-```
+* Project
+  * relations
+    * has 1 user
+    * has 0 to many tasks
+  * id
+  * title
+  * description
+  * creation_date
+  * user
+
+* Task / Todo
+  * relations
+    * has 1 user
+    * has 1 project
+    * has 1 pomodoro
+  * creation date
+  * title
+  * description
+  * has subtasks (optional)
+  * is subtask (optional)
+  * 
+
+* Pomodoros
+  * relations
+    * has 0 or many user
+    * has 0 or many tasks
+  * time (default 25min)
+  * short break (default 5min)
+  * long break (default 25min)
+  * cycles 
+
+* user
+  * relations
+    * has 0 or many projects
+    * has 0 or many tasks
+    * has 0 or many pomodoros
+  * id
+  * name
+  * session_id
+  * password
+  * creation_date
