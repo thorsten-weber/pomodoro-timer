@@ -48,11 +48,17 @@ export default class extends Controller {
         this.toggleControlButtonOff(this.countdownStartButtonTarget);
         this.toggleControlButtonOn(this.countdownStopButtonTarget);
         this.toggleControlButtonOn(this.countdownResetButtonTarget);
+
     }
 
     updateCountdown() {
-        this.setTimerDisplayTime();
-        this.time--;
+        if (this.time >= 0) {
+            this.setTimerDisplayTime();
+            this.time--;
+        } else {
+            this.playAlarmSound();
+            this.reset();
+        }
     }
 
     stop() {
@@ -125,5 +131,10 @@ export default class extends Controller {
 
     resetPausedTimerValue() {
         this.pausedTimerValue = 0;
+    }
+
+    playAlarmSound() {
+        this.alarmSound = new Audio("https://cdn.freesound.org/previews/198/198841_285997-hq.mp3");
+        this.alarmSound.play();
     }
 }
