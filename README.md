@@ -19,7 +19,7 @@ This project is work in progress
 * nice to have
   * Background music (deezer / spotify )
   * estimated finish time (hh:mm)
-
+* Fix Start (2 sec) delay
 
 #### tasks / todos
 * Add Button
@@ -78,3 +78,15 @@ This project is work in progress
   * session_id
   * password
   * creation_date
+
+
+#### Todos Sounds
+find sounds to deliver or an api to use
+
+## Nice to haves
+
+### Sound / effect API
+* find a suitable API / provider
+* connect and test api 
+* find a set of 5-10 alarm sounds to use for the timer
+* 
