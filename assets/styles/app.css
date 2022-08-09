@@ -13,3 +13,8 @@ body {
 .main {
     background-color: whitesmoke;
 }
+
+#countdown-timer {
+    font-size: 3rem;
+    font-weight: bold;
+}
