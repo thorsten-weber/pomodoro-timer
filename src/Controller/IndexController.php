@@ -7,14 +7,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class IndexController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
-    #[Route('/', 'app_index')]
+    #[Route('/', name: 'app_index')]
     public function index(): Response
     {
         // TODO: render real stuff
         return $this->render('index.html.twig', [
-            'welcome_message' => 'Welcome, ',
-            'app_name' =>  'Toto Tomato',
-            'app_description' => 'A Pomodoro Timer',
         ]);
     }
 }

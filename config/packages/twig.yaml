@@ -1,6 +1,11 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
 
+    globals:
+        welcome_message: 'Welcome, '
+        app_name: 'Toto Tomato'
+        app_description: 'A Pomodoro Timer'
+
 when@test:
     twig:
         strict_variables: true
