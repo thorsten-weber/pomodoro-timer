@@ -13,7 +13,14 @@
 
     {% include 'timer.html.twig' %}
 
+    {# if you don't want to expose the controller with a public URL,
+       use the controller() function to define the controller to execute #}
+    {{ render(controller(
+        'App\\Controller\\SoundController::showSoundInformations'
+    )) }}
+    {#
     {% include 'sounds.html.twig' %}
+    #}
 
     {% include 'tasks.html.twig' %}
 

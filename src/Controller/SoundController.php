@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\DependencyInjection\EnvVarLoaderInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -19,28 +20,35 @@ class SoundController extends \Symfony\Bundle\FrameworkBundle\Controller\Abstrac
         return $this->token;
     }
 
-    public function __construct()
+    public function __construct(
+        #[Autowire('%app.freesound_token%')] string $token
+    )
     {
-        $this->token = $this->getParameter('app.freesound_token');
+        $this->token = $token;
     }
 
+    public function showSoundInformations(): Response
+    {
+        $metadata = $this->fetchAllSoundData();
+        dump($metadata);
 
-    public function
+        return $this->render('sounds.html.twig', [
+            'metadata' => $this->fetchAllSoundData(),
+        ]);
+    }
 
-    public function fetchAllSoundData(int $soundId = null): Response
+    public function fetchAllSoundData(int $soundId = null): array
     {
         if ($soundId === null) {
             $soundId = $this->soundId;
         }
 
         $jsonData = file_get_contents(
-            $this->buildFetchUrl($this->soundId, $this->getToken())
+            $this->buildFetchUrl($soundId, $this->getToken())
         );
 
-        $metadata = json_decode($jsonData, true);
-
-//        return new SoundData();
-        return $metadata;
+        // return sound metadata;
+        return json_decode($jsonData, true);
     }
 
     public function buildFetchUrl(int $soundId, string $token): string
