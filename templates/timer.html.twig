@@ -1,10 +1,15 @@
-<div class="container">
+<div class="container section-timer">
     <div class="row text-center">
 
         <h2>Timer TODOs</h2>
+        {{ dump(pomodoro) }}
         <div class="container clock col-sm-12 col-md-4 align-content-center"
                 {{ stimulus_controller('countdown-clock', {
-                    pomodoroInMinutes: 1
+                    pomodoroInMinutes: pomodoro.duration,
+                    pomodoroCycles: pomodoro.cycles,
+                    pomodoroCyclesToLongBreak: pomodoro.cyclesToLongBreak,
+                    pomodoroShortBreak: pomodoro.shortBreak,
+                    pomodoroLongBreak: pomodoro.longBreak
                 }) }}
         >
             <div class="row">

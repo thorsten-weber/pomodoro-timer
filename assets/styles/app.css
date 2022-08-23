@@ -18,3 +18,13 @@ body {
     font-size: 3rem;
     font-weight: bold;
 }
+
+.container.section,
+.container.section-timer {
+    margin-bottom: 3rem;
+    padding-bottom: 1rem;
+}
+
+.section {
+    border-bottom: 1px dashed rgb(13, 110, 253);
+}

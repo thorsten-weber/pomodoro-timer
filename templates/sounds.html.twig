@@ -1,16 +1,19 @@
+<!DOCTYPE html>
 <html>
+    <div class="container section">
+        <div class="row">
+            <h2>sound informations</h2>
+            <ul>
+                <li><strong>name:</strong> {{ metadata.name }}</li>
+                <li><strong>from:</strong> {{ metadata.username }}</li>
+                {% for preview in metadata.previews %}
+                    {% if loop.last %}
+                        <li><strong>streamed from:</strong> {{ preview }}</li>
+                    {% endif %}
+                {% endfor %}
 
-
-<h2>sound informations</h2>
-<ul>
-<li><strong>name:</strong> {{  metadata.name }}</li>
-<li><strong>from:</strong> {{  metadata.username }}</li>
-{% for preview in metadata.previews %}
-{% if loop.last %}
-    <li><strong>streamed from:</strong> {{  preview }}</li>
-    {% endif %}
-{% endfor %}
-
-</ul>
+            </ul>
+        </div>
+    </div>
 </html>
 
