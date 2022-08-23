@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+{# { % extends 'base.html.twig' % } #}
+
+{# {% block title %}Tasks index{% endblock %} #}
+
+{% block body %}
+    <h1>Tasks index</h1>
+    <turbo-frame id="turbo-pomodoro-tasks">
+
+        <table class="table">
+            <thead>
+            <tr>
+                {#
+                <th>Id</th>
+                #}
+                <th colspan="3">Title</th>
+                <th colspan="3">Description</th>
+                {# <!-- actions 3 cols --> #}
+                <th colspan="3">actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for task in tasks %}
+                <tr>
+                    {#
+                    <td>{{ task.id }}</td>
+                    #}
+                    <td colspan="3">{{ task.title }}</td>
+                    <td colspan="3">{{ task.description }}</td>
+                    {# <!-- actions start --> #}
+
+                    <td>
+                        <a href="{{ path('app_tasks_show', {'id': task.id}) }}">show</a>
+                    </td>
+
+                    <td>
+                        {{ include('tasks/_edit_form.html.twig') }}
+                    </td>
+                    <td>
+                        {{ include('tasks/_delete_form.html.twig') }}
+                    </td>
+                    {# <!-- actions end --> #}
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="9" style="text-align: center">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+                    <a href="{{ path('app_tasks_new') }}"class="btn btn-outline-success">Create new ➕</a>
+
+
+    </turbo-frame>
+{% endblock %}
+</html>

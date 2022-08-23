@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Tasks{% endblock %}
+
+{% block body %}
+    <h1>Create new Tasks</h1>
+
+    <turbo-frame id="turbo-pomodoro-tasks">
+        {{ include('tasks/_form.html.twig') }}
+
+        {{ include('tasks/_backtolist_form.html.twig') }}
+    </turbo-frame>
+{% endblock %}

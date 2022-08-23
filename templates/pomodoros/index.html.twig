@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+{# { % extends 'base.html.twig' % }
+
+{% block title %}Pomodoros index{% endblock %} #}
+
+{% block body %}
+
+
+    <h1>Pomodoros index</h1>
+    <turbo-frame id="turbo-pomodoro-settings">
+
+        <table class="table">
+            <thead>
+            <tr>
+                {#
+                <th>Id</th>
+                #}
+                <th>Duration</th>
+                <th>Short_break</th>
+                <th>Long_break</th>
+                <th>Cycles</th>
+                <th>Creation_date</th>
+                <th>Cycles_to_long_break</th>
+                {# <!-- actions 3 cols --> #}
+                <th colspan="3">actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for pomodoro in pomodoros %}
+                <tr>
+                    {#
+                    <td>{{ pomodoro.id }}</td>
+                    #}
+                    <td>{{ pomodoro.duration }}</td>
+                    <td>{{ pomodoro.shortBreak }}</td>
+                    <td>{{ pomodoro.longBreak }}</td>
+                    <td>{{ pomodoro.cycles }}</td>
+                    <td>{{ pomodoro.creationDate ? pomodoro.creationDate|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ pomodoro.cyclesToLongBreak }}</td>
+                    {# <!-- actions start --> #}
+                    <td>
+                        <a href="{{ path('app_pomodoros_show', {'id': pomodoro.id}) }}">show </a>
+                    </td>
+                    <td>
+                        {{ include('pomodoros/_edit_form.html.twig') }}
+                    </td>
+                    <td>
+                        {{ include( 'pomodoros/_delete_form.html.twig') }}
+                    </td>
+                    {# <!-- actions end --> #}
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6" style="text-align: center"><strong>no records found</strong></td>
+                    <td colspan="3"><a href="{{ path('app_pomodoros_new') }}" class="btn btn-primary btn-success">Create new ➕</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+    </turbo-frame>
+{% endblock %}
+</html>

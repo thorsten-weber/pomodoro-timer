@@ -39,6 +39,16 @@ class PomodorosRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function getLastPomodoro(): ?Pomodoros
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 //    /**
 //     * @return Pomodoros[] Returns an array of Pomodoros objects
 //     */

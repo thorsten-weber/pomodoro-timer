@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block body %}
+    <h1>Tasks</h1>
+
+    <turbo-frame id="turbo-pomodoro-tasks">
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ task.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ task.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ task.description }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        {{ include('tasks/_backtolist_form.html.twig') }}
+
+        {{ include('tasks/_edit_form.html.twig') }}
+
+        {{ include('tasks/_delete_form.html.twig') }}
+    </turbo-frame>
+{% endblock %}

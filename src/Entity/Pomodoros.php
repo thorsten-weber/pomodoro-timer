@@ -16,9 +16,6 @@ class Pomodoros
     #[ORM\Column()]
     private ?int $id = null;
 
-//    #[ORM\Column]
-//    private ?int $uid = null;
-
     #[ORM\Column]
     private ?int $duration = null;
 
@@ -34,33 +31,13 @@ class Pomodoros
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $creation_date = null;
 
-    #[ORM\OneToMany(mappedBy: 'pomodoros', targetEntity: Tasks::class)]
-    private Collection $tasks;
-
     #[ORM\Column(nullable: true)]
     private ?int $cycles_to_long_break = null;
-
-    public function __construct()
-    {
-        $this->tasks = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
-
-//    public function getUid(): ?int
-//    {
-//        return $this->uid;
-//    }
-//
-//    public function setUid(int $uid): self
-//    {
-//        $this->uid = $uid;
-//
-//        return $this;
-//    }
 
     public function getDuration(): ?int
     {
@@ -118,36 +95,6 @@ class Pomodoros
     public function setCreationDate(\DateTimeInterface $creation_date): self
     {
         $this->creation_date = $creation_date;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Tasks>
-     */
-    public function getTasks(): Collection
-    {
-        return $this->tasks;
-    }
-
-    public function addTask(Tasks $task): self
-    {
-        if (!$this->tasks->contains($task)) {
-            $this->tasks[] = $task;
-            $task->setPomodoros($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTask(Tasks $task): self
-    {
-        if ($this->tasks->removeElement($task)) {
-            // set the owning side to null (unless already changed)
-            if ($task->getPomodoros() === $this) {
-                $task->setPomodoros(null);
-            }
-        }
 
         return $this;
     }

@@ -1,0 +1,18 @@
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Edit Tasks{% endblock %}
+
+{% block body %}
+    <h1>Edit Tasks</h1>
+
+#}
+    <turbo-frame id="turbo-pomodoro-tasks" >
+        {{ include('pomodoros/_form.html.twig', {'button_label': '✅ Update'}) }}
+
+        {{ include('tasks/_backtolist_form.html.twig') }}
+
+        {{ include('tasks/_delete_form.html.twig') }}
+    </turbo-frame>
+{#
+{% endblock %}
+#}
