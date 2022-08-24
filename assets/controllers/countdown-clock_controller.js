@@ -65,9 +65,9 @@ export default class extends Controller {
         this.stopTimer();
         this.pausedTimerValue = this.time;
 
-        this.toggleControlButtonOn(this.countdownStartButtonTarget)
-        this.toggleControlButtonOff(this.countdownStopButtonTarget)
-        this.toggleControlButtonOn(this.countdownResetButtonTarget)
+        this.toggleControlButtonOn(this.countdownStartButtonTarget);
+        this.toggleControlButtonOff(this.countdownStopButtonTarget);
+        this.toggleControlButtonOn(this.countdownResetButtonTarget);
 
         // is this really necessary?
         this.disconnect();
@@ -91,9 +91,9 @@ export default class extends Controller {
 
     setTimerDisplayTime() {
         const minutes = Math.floor(this.time / 60);
-        let seconds = this.time % 60
+        let seconds = this.time % 60;
 
-        seconds = seconds < 10 ? '0' + seconds : seconds
+        seconds = seconds < 10 ? '0' + seconds : seconds;
 
         this.timerDisplayTarget.innerHTML = `${minutes} : ${seconds}`;
     }
