@@ -19,6 +19,7 @@ class PomodorosController extends AbstractController
     {
         return $this->render('pomodoros/index.html.twig', [
             'pomodoros' => $pomodorosRepository->findAll(),
+            'lastPomodoro' => $pomodorosRepository->getLastPomodoro(),
         ]);
     }
 
