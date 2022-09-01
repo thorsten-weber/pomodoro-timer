@@ -11,6 +11,32 @@
                     pomodoroLongBreak: pomodoro.longBreak
                 }) }}
         >
+            <div class="row text-center">
+                <div class="col-sm-12 text-center" id="countdown-variant-controls">
+                    <input class="btn btn-primary"
+                           id="countdown-control-pomodoro"
+                           type="button"
+                           value="Pomodoro"
+                            {{ stimulus_action('click->countdown-clock', 'pomodoro') }}
+                            {{ stimulus_target('countdown-clock', 'pomodoroButton') }}
+                    >
+                    <input class="btn btn-primary"
+                           id="countdown-control-shortBreak"
+                           type="button"
+                           value="Short break"
+                            {{ stimulus_action('click->countdown-clock', 'shortBreak') }}
+                            {{ stimulus_target('countdown-clock', 'shortBreakButton') }}
+                    >
+                    <input class="btn btn-primary"
+                           id="countdown-control-longBreak"
+                           type="button"
+                           value="Long break"
+                            {{ stimulus_action('click->countdown-clock', 'longBreak') }}
+                            {{ stimulus_target('countdown-clock', 'longBreakButton') }}
+                    >
+                </div>
+            </div>
+
             <div class="row">
                 <div id="countdown-timer" class="col-sm-12 text-center"
                         {{ stimulus_target('countdown-clock', 'timerDisplay') }}

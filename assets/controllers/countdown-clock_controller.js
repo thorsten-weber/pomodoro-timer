@@ -11,22 +11,7 @@ import timer from 'moment-timer';
  */
 export default class extends Controller {
 
-    static values = {
-        pomodoroInMinutes: {type: Number, default: 1},
-        refreshInterval: {type: Number, default: 1000},
-        pausedTimer: {type: Number, default: 0},
-        pomodoroCycles: {type: Number, default: 0},
-        pomodoroCyclesToLongBreak: {type: Number, default: 0},
-        pomodoroShortBreak: {type: Number, default: 0},
-        pomodoroLongBreak: {type: Number, default: 0},
-    }
-
-    static targets = [
-        'timerDisplay',
-        'countdownStartButton',
-        'countdownStopButton',
-        'countdownResetButton'
-    ];
+/**
 
     // TODO: remove when finished
     // wording:
@@ -41,12 +26,48 @@ export default class extends Controller {
     // totalCycles default = 1
     // cyclesToLongBreak default = 2
 
+*/
+
+    /**
+     * Values from Symfony Backend / Template timer.html.twig
+     *
+     * @type {{pomodoroCycles: {default: number, type: Number | NumberConstructor},
+     * pomodoroInMinutes: {default: number, type: Number | NumberConstructor},
+     * pomodoroShortBreak: {default: number, type: Number | NumberConstructor},
+     * refreshInterval: {default: number, type: Number | NumberConstructor},
+     * pomodoroCyclesToLongBreak: {default: number, type: Number | NumberConstructor},
+     * pausedTimer: {default: number, type: Number | NumberConstructor},
+     * pomodoroLongBreak: {default: number, type: Number | NumberConstructor}}}
+     */
+    static values = {
+        pomodoroInMinutes: {type: Number, default: 1},
+        refreshInterval: {type: Number, default: 1000},
+        pausedTimer: {type: Number, default: 0},
+        pomodoroCycles: {type: Number, default: 0},
+        pomodoroCyclesToLongBreak: {type: Number, default: 0},
+        pomodoroShortBreak: {type: Number, default: 0},
+        pomodoroLongBreak: {type: Number, default: 0},
+    }
+
+    /**
+     * Targets as defined in Template timer.html.twig
+     */
+    static targets = [
+        'timerDisplay',
+        'countdownStartButton',
+        'countdownStopButton',
+        'countdownResetButton',
+        'pomodoroButton',
+        'shortBreakButton',
+        'longBreakButton',
+    ];
+
     /**
      * Setup pomodoro duration in seconds
      * @param pomodoroDuration
      */
     setPomodoroDurationTimeInSeconds(pomodoroDuration) {
-        this.duration = pomodoroDuration * 60;
+        this.pomodoroInSeconds = pomodoroDuration * 60;
     }
 
     /**
@@ -77,8 +98,22 @@ export default class extends Controller {
         this.setPomodoroLongBreakTimeInSeconds(this.pomodoroLongBreakValue);
     }
 
+    setTimerVariant(timerVariant) {
+        this.timerVariant = timerVariant;
+    }
     setStartTime() {
         this.setPomodoroDurationTimeInSeconds(this.pomodoroInMinutesValue);
+    }
+
+    setTimerTimeByVariant(timerVariant = this.timerVariant) {
+        switch (timerVariant) {
+            case 'shortBreak': this.duration = this.shortBreakInSeconds;
+                break;
+            case 'longBreak': this.duration = this.longBreakInSeconds;
+                break;
+            case 'pomodoro':
+            default: this.duration = this.pomodoroInSeconds;
+        }
     }
 
     /**
@@ -87,12 +122,59 @@ export default class extends Controller {
     connect() {
         console.log(this.pomodoroCyclesValue, this.pomodoroCyclesToLongBreakValue, this.pomodoroShortBreakValue,  this.pomodoroLongBreakValue );
         this.setupPomodoroValues();
-        // this.setStartTime();
-        console.log(this.duration, this.shortBreakInSeconds, this.longBreakInSeconds);
-        this.setTimerDisplayTime();
-        this.toggleControlButtonOff(this.countdownStopButtonTarget);
-        this.toggleControlButtonOff(this.countdownResetButtonTarget);
+        this.pomodoro();
+
     }
+
+    /**
+     * pomodoro Action, will set timer values for pomodoro
+     */
+    pomodoro() {
+        const timerVariant = 'pomodoro';
+
+        this.setTimerVariant(timerVariant);
+        this.setTimerTimeByVariant(timerVariant);
+        this.setTimerDisplayTime();
+        this.reset();
+
+
+        this.toggleControlButtonOff(this.pomodoroButtonTarget);
+        this.toggleControlButtonOn(this.shortBreakButtonTarget);
+        this.toggleControlButtonOn(this.longBreakButtonTarget);
+    }
+
+    /**
+     * shortBreak Action, will set timer values for short breaks
+     */
+    shortBreak() {
+        const timerVariant = 'shortBreak';
+
+        this.setTimerVariant(timerVariant);
+        this.setTimerTimeByVariant(timerVariant);
+        this.setTimerDisplayTime();
+
+        this.toggleControlButtonOn(this.pomodoroButtonTarget);
+        this.toggleControlButtonOff(this.shortBreakButtonTarget);
+        this.toggleControlButtonOn(this.longBreakButtonTarget);
+        this.reset();
+    }
+
+    /**
+     * longBreak Action, will set timer values for long breaks
+     */
+    longBreak() {
+        const timerVariant = 'longBreak';
+
+        this.setTimerVariant(timerVariant);
+        this.setTimerTimeByVariant(timerVariant);
+        this.setTimerDisplayTime();
+
+        this.toggleControlButtonOn(this.pomodoroButtonTarget);
+        this.toggleControlButtonOn(this.shortBreakButtonTarget);
+        this.toggleControlButtonOff(this.longBreakButtonTarget);
+        this.reset();
+    }
+
 
     /**
      * startAction, triggered by start button
@@ -162,15 +244,23 @@ export default class extends Controller {
     }
 
     updateCountdown() {
-        // this.duration will be set initially with setStartTime()
-        if (this.duration >= 0) {
-            this.setTimerDisplayTime();
-            this.duration--;
-        } else {
-            this.stopTimer();
-            this.playAlarmSound();
-            // this.endOfCycle();
-        }
+        // if (this.cycles !== this.totalCycles) {
+            // this.duration will be set initially with setStartTime()
+            if (this.duration >= 0) {
+                this.setTimerDisplayTime();
+                this.duration--;
+            } else {
+                this.cycles++;
+                this.stopTimer();
+                this.playAlarmSound();
+                // this.endOfCycle();
+            }
+        // } else {
+        //     this.stopTimer();
+        //     this.playAlarmSound();
+        //     alert('All Pomodoros are finished');
+        // }
+
     }
 
     stopTimer() {
@@ -182,7 +272,7 @@ export default class extends Controller {
     }
 
     resetTimers() {
-        this.setStartTime();
+        this.setTimerTimeByVariant();
         this.resetPausedTimerValue();
     }
 
