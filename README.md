@@ -19,7 +19,7 @@ For further Information on setting up DDEV, please consult the [DDEV documentati
  
 ### Setup
 If you setup docker, docker-compose and ddev properly for your environment / OS you are ready to go:
-
+Make sure to read the section [Initial Configuration](#Inititial Configuration) first
 ```shell
 mkdir /your/projects-root/my-pomodoro-timer
 cd /your/projects-root/my-pomodoro-timer
@@ -33,23 +33,39 @@ After cloning the repo finished you are ready to run the app
 YOu may or may not want to change the `.ddev/config.yaml`, The checked out version will setup your environment with php 8.1 and MySQL Database
 For details on changes to this file, refer to the [config documentation](https://ddev.readthedocs.io/en/stable/users/configuration/config_yaml/) of DDEV
 
+You may want to change the project-name (i.e. in case of conflicts). You can use `ddev config` and follow the instructions.
+You must leave the later 2 options as they are, and just set a new name for your project.
+
 ```shell
-ddev start              # will start ddev
+ddev start
 ddev composer install
 ddev yarn install 
 ddev php bin/console doctrine:migrations:migrate
-ddev launch
+ddev yarn dev
+ddev launch 
 ```
 The command chain above will
 * start the ddev environmnet (and in the very first run setup the environment for the project)
 * install the needed libs and dependecies for the php parts of the app
 * install the node_modules for the app
 * Setup the database tables as needed by symfony entities
+* build the assets for frondend rendering (css, js etc.), by ommiting the `dev` flag/ argument, production ready assets will be build
 * launch the app into your browser
 
 ### Initial Configuration
 
-Projects initial configuration - WIP
+Projects initial configuration
+env-variables
+: You will need to create a local `.env` file named `.env.local`. This is mandatory to get the db connection set up correctly and to make sure you are able to call the sound via the freesound API.
+
+```dotenv
+# Override database
+DATABASE_URL="mysql://db:db@ddev-<PROJECT_NAME>-db.ddev-pomodoro_default:3306/db?serverVersion=8.0&charset=utf8mb4"
+
+FREESOUND_CLIENT_KEY="YOUR_API_KEY"
+FRESSOUND_CLIENT_ID="YOUR_API_ID"
+```
+
 
 ## Developing
 
@@ -63,6 +79,7 @@ This will start the webpack / encore watcher process. This will rbuild assets, C
 For now you need to reload the app / browser on your own, to make built changes visible.
 Changes on the php backend code will take effect imediately after saving the file and relaoding the app
 
+
 ## Contributing
 If you'd like to contribute, please fork the repository and use a feature
 branch. Pull requests are warmly welcome.
@@ -72,6 +89,7 @@ For the `php` Code use [PSR-12](https://www.php-fig.org/psr/psr-12/)
 In the JavaScript files try to keep the already existing Style, changes may be discussed. 
 Linting may be introduced as a result of these discussions
 
+
 ## Links
 
 - Project homepage: https://github.com/thorsten-weber/pomodoro-timer
@@ -80,6 +98,7 @@ Linting may be introduced as a result of these discussions
     - In case of sensitive bugs like security vulnerabilities, please contact
       thorsten.weber.rm@gmail.com directly instead of using issue tracker. We value your effort
       to improve the security and privacy of this project!
+
 
 ## Licensing
 
